@@ -31,7 +31,7 @@ def get_available():
 
 def restart():
     with open(state_location, 'w') as f:
-        json.dump({"rate": "", "UAH": "", "USD": ""}, f)
+        json.dump({"rate": "", "UAH": read_config()['UAH'], "USD": read_config()['USD']}, f)
 
 
 def _create_state_file():
@@ -103,7 +103,7 @@ AVAILABLE {self.uah_balance} UAH")
         self._state_update(self.get_rate())
 
     def buy_usd_all(self):
-        print(f'TRANSACTION COMPLETED: {round(self.uah_balance, 2)} UAH EXCHANGED TO\
+        print(f'TRANSACTION COMPLETED: {round(self.uah_balance, 2)} UAH EXCHANGED TO \
 {round((self.uah_balance / self.get_rate()), 2)} USD')
         self.usd_balance += self.uah_balance / self.get_rate()
         self.uah_balance = 0
